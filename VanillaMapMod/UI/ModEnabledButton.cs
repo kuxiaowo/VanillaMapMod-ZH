@@ -12,6 +12,6 @@ internal class ModEnabledButton : MainButton
 
     protected override TextFormat GetTextFormat()
     {
-        return new("Mod\nEnabled".L(), Colors.GetColor(ColorSetting.UI_On));
+        return new("Mod\nEnabled".Translate(), Colors.GetColor(ColorSetting.UI_On));
     }
 }

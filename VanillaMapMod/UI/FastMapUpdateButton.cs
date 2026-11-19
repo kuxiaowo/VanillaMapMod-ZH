@@ -25,10 +25,10 @@ internal class FastMapUpdateButton : MainButton
 
     protected override TextFormat GetTextFormat()
     {
-        var text = $"{"Fast Map\nUpdate".L()}: ";
+        var text = $"{"Fast Map\nUpdate".Translate()}: ";
 
         return VanillaMapMod.GS.FastMapUpdate
-            ? new(text + "On".L(), Colors.GetColor(ColorSetting.UI_On))
-            : new(text + "Off".L(), Colors.GetColor(ColorSetting.UI_Neutral));
+            ? new(text + "On".Translate(), Colors.GetColor(ColorSetting.UI_On))
+            : new(text + "Off".Translate(), Colors.GetColor(ColorSetting.UI_Neutral));
     }
 }
