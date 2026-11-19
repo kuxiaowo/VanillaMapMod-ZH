@@ -9,10 +9,11 @@
 		<Description>A Hollow Knight mod that adds extra pins for all item locations on the map.</Description>
 		<Copyright>Copyright © syyePhenomenol 2022</Copyright>
 		<Authors>syyePhenomenol</Authors>
-		<AssemblyVersion>1.5.*</AssemblyVersion>
+		<Version>2.1.6-zh.1</Version>
+		<AssemblyVersion>1.5.9372.40005</AssemblyVersion>
+		<FileVersion>2.1.6.1</FileVersion>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
-		<Deterministic>false</Deterministic>
-		<NoWarn>CS7035</NoWarn>
+		<Deterministic>true</Deterministic>
 		<OutputPath>bin\$(Configuration)\</OutputPath>
 		<LangVersion>preview</LangVersion>
 	</PropertyGroup>
@@ -37,14 +38,18 @@
 		<WarningLevel>4</WarningLevel>
 	</PropertyGroup>
 
-	<Target Name="CopyMod" AfterTargets="PostBuildEvent">
+	<ItemGroup>
+		<None Update="language.json" CopyToOutputDirectory="PreserveNewest" />
+	</ItemGroup>
+
+	<Target Name="CopyMod" AfterTargets="PostBuildEvent" Condition="'$(ExportDir)' != ''">
 		<RemoveDir Directories="$(ExportDir)/$(TargetName)/" />
 		<MakeDir Directories="$(ExportDir)/$(TargetName)/" />
 		<MakeDir Directories="$(ExportDir)/$(TargetName)/zip/" />
 		<MakeDir Condition="!Exists('$(HollowKnightRefs)/Mods/$(TargetName)/')" Directories="$(HollowKnightRefs)/Mods/$(TargetName)/" />
-		<Copy SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(HollowKnightRefs)/Mods/$(TargetName)/" />
+		<Copy SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb;$(TargetDir)/language.json" DestinationFolder="$(HollowKnightRefs)/Mods/$(TargetName)/" />
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ExportDir)/$(TargetName)/" />
-		<Copy SourceFiles="../README.md;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ExportDir)/$(TargetName)/zip/" />
+		<Copy SourceFiles="../README.md;../LICENSE;$(TargetPath);$(TargetDir)/$(TargetName).pdb;$(TargetDir)/language.json" DestinationFolder="$(ExportDir)/$(TargetName)/zip/" />
 		<ZipDirectory SourceDirectory="$(ExportDir)/$(TargetName)/zip/" DestinationFile="$(ExportDir)/$(TargetName)/$(TargetName).zip" />
 		<RemoveDir Directories="$(ExportDir)/$(TargetName)/zip/" />
 
@@ -81,6 +86,9 @@
 		<Reference Include="UnityEngine.CoreModule">
 			<HintPath>$(HollowKnightRefs)\UnityEngine.CoreModule.dll</HintPath>
 		</Reference>
+	  <Reference Include="UnityEngine.TextRenderingModule">
+	    <HintPath>$(HollowKnightRefs)\UnityEngine.TextRenderingModule.dll</HintPath>
+	  </Reference>
 		<Reference Include="UnityEngine.UI">
 			<HintPath>$(HollowKnightRefs)\UnityEngine.UI.dll</HintPath>
 		</Reference>
